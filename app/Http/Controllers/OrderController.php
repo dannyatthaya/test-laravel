@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $orders = Order::with(['products', 'customer'])->paginate(25);
+            $orders = Order::with(['products', 'customer'])->latest()->paginate(25);
 
             return $this->withPagination(OrderResource::collection($orders)->response()->getData(true));
         } catch (Exception $e) {

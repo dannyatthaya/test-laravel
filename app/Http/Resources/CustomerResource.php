@@ -21,6 +21,7 @@ class CustomerResource extends JsonResource
             'displayName' => $this->display_name,
             'location' => $this->location,
             'gender' => $this->gender,
+            'address' => $this->address,
             'createdAt' => Carbon::parse($this->created_at)->format('d-m-Y H:i:s'),
             'updatedAt' => Carbon::parse($this->updated_at)->format('d-m-Y H:i:s'),
         ];

@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
             'displayName' => $this->display_name,
             'category' => $this->category,
             'price' => $this->price,
+            'color' => $this->color,
             'orders' => OrderResource::collection($this->whenLoaded('orders')),
             'quantity' => $this->whenPivotLoaded('order_products', function () {
                 return $this->pivot->quantity;

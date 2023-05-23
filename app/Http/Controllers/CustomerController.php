@@ -27,7 +27,7 @@ class CustomerController extends Controller
                 $request->input('search'),
                 fn ($query) => $query->where('display_name', 'LIKE', $request->input('search') . '%', 'OR')
                     ->where('name', 'LIKE', $request->input('search') . '%', 'OR')
-            )->paginate(25);
+            )->latest()->paginate(25);
 
             return $this->withPagination(CustomerResource::collection($customers)->response()->getData(true));
         } catch (Exception $e) {
@@ -48,7 +48,8 @@ class CustomerController extends Controller
                 'name' => 'required|string|unique:customers,name',
                 'display_name' => 'required|string',
                 'location' => 'required|string',
-                'gender' => 'required|string|in:F,M'
+                'gender' => 'required|string|in:F,M',
+                'address' => 'nullable|string',
             ]);
 
             Customer::create($validated);
@@ -98,7 +99,8 @@ class CustomerController extends Controller
                 'name' => 'required|string|unique:customers,name,' . $id,
                 'display_name' => 'required|string',
                 'location' => 'required|string',
-                'gender' => 'required|string|in:F,M'
+                'gender' => 'required|string|in:F,M',
+                'address' => 'nullable|string',
             ]);
 
             Customer::whereId($id)

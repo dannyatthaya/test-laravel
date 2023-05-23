@@ -13,6 +13,7 @@ class Customer extends Model
         'name',
         'display_name',
         'location',
-        'gender'
+        'gender',
+        'address',
     ];
 }

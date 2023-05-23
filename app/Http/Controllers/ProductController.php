@@ -29,7 +29,7 @@ class ProductController extends Controller
                 $request->input('search'),
                 fn ($query) => $query->where('display_name', 'LIKE', $request->input('search') . '%', 'OR')
                     ->where('name', 'LIKE', $request->input('search') . '%', 'OR')
-            )->paginate(25);
+            )->latest()->paginate(25);
 
             return $this->withPagination(ProductResource::collection($products)->response()->getData(true));
         } catch (Exception $e) {
@@ -50,7 +50,8 @@ class ProductController extends Controller
                 'name' => 'required|string|unique:products,name',
                 'display_name' => 'required|string',
                 'category' => 'required|string',
-                'price' => 'required|numeric|gte:0'
+                'price' => 'required|numeric|gte:0',
+                'color' => 'required|string',
             ]);
 
             Product::create($validated);
@@ -100,7 +101,8 @@ class ProductController extends Controller
                 'name' => 'required|string|unique:products,name,' . $id,
                 'display_name' => 'required|string',
                 'category' => 'required|string',
-                'price' => 'required|numeric|gte:0'
+                'price' => 'required|numeric|gte:0',
+                'color' => 'required|string',
             ]);
 
             Product::whereId($id)
